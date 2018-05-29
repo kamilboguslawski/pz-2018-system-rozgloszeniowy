@@ -1,0 +1,20 @@
+[
+  {
+    "_class": "com.pz.broadcast.entities.Role",
+    "id": 10,
+    "name": "GLOBAL_ADMINISTRATOR",
+    "description": "Global administrator of the system"
+  },
+  {
+    "_class": "com.pz.broadcast.entities.Role",
+    "id": 11,
+    "name": "GROUP_ADMINISTRATOR",
+    "description": "Administrator of the groups which he belongs"
+  },
+  {
+    "_class": "com.pz.broadcast.entities.Role",
+    "id": 20,
+    "name": "USER",
+    "description": "User of the system."
+  }
+]

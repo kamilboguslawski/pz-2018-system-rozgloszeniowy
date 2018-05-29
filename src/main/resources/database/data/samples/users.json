@@ -1,0 +1,46 @@
+[
+  {
+    "_class": "com.pz.broadcast.entities.User",
+    "login": "globaladmin",
+    "password": "globaladmin",
+    "email": "globaladmin@broadcast.com",
+    "roles": [
+      {
+        "_class": "com.pz.broadcast.entities.Role",
+        "id": 10
+      },
+      {
+        "_class": "com.pz.broadcast.entities.Role",
+        "id": 20
+      }
+    ]
+  },
+  {
+    "_class": "com.pz.broadcast.entities.User",
+    "login": "groupadmin",
+    "password": "groupadmin",
+    "email": "groupadmin@broadcast.com",
+    "roles": [
+      {
+        "_class": "com.pz.broadcast.entities.Role",
+        "id": 11
+      },
+      {
+        "_class": "com.pz.broadcast.entities.Role",
+        "id": 20
+      }
+    ]
+  },
+  {
+    "_class": "com.pz.broadcast.entities.User",
+    "login": "user",
+    "password": "user",
+    "email": "user@broadcast.com",
+    "roles": [
+      {
+        "_class": "com.pz.broadcast.entities.Role",
+        "id": 20
+      }
+    ]
+  }
+]
