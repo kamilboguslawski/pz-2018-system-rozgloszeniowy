@@ -14,7 +14,7 @@ public class User {
     private String email;
     @ManyToMany
     private List<Role> roles;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<UserGroup> groups;
     @OneToMany(
             mappedBy = "user",

@@ -1,0 +1,20 @@
+[
+  {
+    "_class": "com.pz.broadcast.entities.UserGroup",
+    "name": "TESTOWA Grupa 1",
+    "description": "description description description description description description description description",
+    "files": [
+      {
+        "_class": "com.pz.broadcast.entities.File",
+        "name": "Testowy zepsuty plik",
+        "link": "#",
+        "fileHash": "hash####hash"
+      }
+    ]
+  },
+  {
+    "_class": "com.pz.broadcast.entities.UserGroup",
+    "name": "TESTOWA Grupa 2",
+    "description": "description description description description description description description description"
+  }
+]

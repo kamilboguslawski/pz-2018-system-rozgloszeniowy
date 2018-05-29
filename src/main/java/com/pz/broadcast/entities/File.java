@@ -1,9 +1,6 @@
 package com.pz.broadcast.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,7 +12,7 @@ public class File {
     private String name;
     private String link;
     private String fileHash;
-    @ManyToMany
+    @ManyToMany(mappedBy = "files")
     private List<UserGroup> groups;
 
 

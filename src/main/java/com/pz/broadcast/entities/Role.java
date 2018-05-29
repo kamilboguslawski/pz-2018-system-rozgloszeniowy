@@ -10,17 +10,17 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue
     private Long id;
     private String name;
     private String description;
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
 
     protected Role() {}
 
-    public Role(String name, String description) {
+    public Role(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }

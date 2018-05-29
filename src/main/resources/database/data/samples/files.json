@@ -1,0 +1,8 @@
+[
+  {
+    "_class": "com.pz.broadcast.entities.File",
+    "name": "Testowy zepsuty plik",
+    "link": "#",
+    "fileHash": "hash####hash"
+  }
+]
