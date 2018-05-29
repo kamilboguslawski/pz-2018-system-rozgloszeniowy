@@ -11,6 +11,8 @@
     <repository:jackson2-populator locations="classpath:database/data/essentials/roles.json"/>
 
     <!--Sample Data-->
+    <repository:jackson2-populator locations="classpath:database/data/samples/files.json"/>
+    <repository:jackson2-populator locations="classpath:database/data/samples/groups.json"/>
     <repository:jackson2-populator locations="classpath:database/data/samples/users.json"/>
 
 </beans>
