@@ -1,9 +1,6 @@
 package com.pz.broadcast.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,9 +11,9 @@ public class UserGroup {
     private Long id;
     private String name;
     private String description;
-    @ManyToMany
+    @ManyToMany(mappedBy = "groups")
     private List<User> users;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<File> files;
 
 
