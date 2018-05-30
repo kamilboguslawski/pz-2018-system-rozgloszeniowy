@@ -1,7 +1,10 @@
 package com.pz.broadcast;
 
+import com.pz.broadcast.services.file.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
@@ -16,7 +19,13 @@ import org.springframework.context.annotation.ImportResource;
         "com.pz.broadcast.utils"
 })
 public class BroadcastApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(BroadcastApplication.class, args);
-    }
+
+	public static void main(String[] args) {
+		SpringApplication.run(BroadcastApplication.class, args);
+	}
+
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return args -> storageService.init();
+	}
 }
