@@ -1,10 +1,15 @@
 package com.pz.broadcast.dtos;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.util.List;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserData {
     Long id;
     String login;
@@ -14,3 +19,5 @@ public class UserData {
     List<UserGroupData> groups;
     List<DeviceData> devices;
 }
+
+
