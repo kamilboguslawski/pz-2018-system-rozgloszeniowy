@@ -1,8 +1,11 @@
 package com.pz.broadcast.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 public class Log {
 
@@ -25,60 +28,6 @@ public class Log {
         this.action = action;
         this.datetime = datetime;
         this.comment = comment;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public Date getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    @Override
-    public String toString() {
-        return "Log{" +
-                "id=" + id +
-                ", action='" + action + '\'' +
-                ", datetime=" + datetime +
-                ", comment='" + comment + '\'' +
-                '}';
     }
 
 }
