@@ -4,7 +4,9 @@ import './Footer.css';
 class Footer extends Component {
     render() {
         return (
-            <div>Footer</div>
+            <div className="text-muted footer">
+                Footer
+            </div>
         )
     }
 }
