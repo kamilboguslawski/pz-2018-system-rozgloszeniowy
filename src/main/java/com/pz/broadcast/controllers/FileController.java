@@ -11,13 +11,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class FileController {
 
-    private final StorageService storageService;
-
     @Autowired
-    public FileController(StorageService storageService) {
-        this.storageService = storageService;
-    }
-
+    private StorageService storageService;
 
     @PostMapping("/uploadFile")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
