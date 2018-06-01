@@ -8,6 +8,7 @@ import {createStore} from 'redux';
 import reducers from './reducers';
 import Homepage from "./views/Homepage/Homepage";
 import Login from "./views/Login/Login";
+import Register from "./views/Register/Register";
 
 const store = createStore(reducers);
 
@@ -16,6 +17,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
                 <Route path="/" component={Homepage}/>
             </Switch>
         </BrowserRouter>
