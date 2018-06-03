@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css';
-import CentredComponentsLayout from "../../commons/components/layouts/CentredComponentsLayout/CentredComponentsLayout";
+import CentredComponentsLayout from "../../commons/layouts/CentredComponentsLayout/CentredComponentsLayout";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import TextLogo from "../../commons/components/TextLogo/TextLogo";

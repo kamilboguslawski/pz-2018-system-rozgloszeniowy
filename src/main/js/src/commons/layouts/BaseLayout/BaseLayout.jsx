@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './BaseLayout.css';
-import Footer from "../../Footer/Footer";
-import MainNavbar from "../../MainNavbar/MainNavbar";
 import {Container} from "reactstrap";
+import MainNavbar from "../../components/MainNavbar/MainNavbar";
+import Footer from "../../components/Footer/Footer";
 
 class BaseLayout extends Component {
     render() {
@@ -12,7 +12,7 @@ class BaseLayout extends Component {
                     <MainNavbar/>
                 </header>
                 <main>
-                    <Container>
+                    <Container className={this.props.className}>
                         {this.props.children}
                     </Container>
                 </main>
