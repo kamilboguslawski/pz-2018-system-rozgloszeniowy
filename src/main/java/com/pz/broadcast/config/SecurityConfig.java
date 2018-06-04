@@ -40,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/js/**", "/api/**").permitAll() //FIXME: api cannot be open for anyone, currently react need this.
                 .antMatchers("/404", "/403", "/home", "/about", "/logout", "/isLogged").permitAll()
                 .antMatchers("/", "/register").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("GLOBAL_ADMINISTRATOR")

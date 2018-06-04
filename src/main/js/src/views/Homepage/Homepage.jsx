@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Homepage.css';
-import BaseLayout from "../../commons/components/layouts/BaseLayout/BaseLayout";
+import BaseLayout from "../../commons/layouts/BaseLayout/BaseLayout";
 
 class Homepage extends Component {
     render() {
