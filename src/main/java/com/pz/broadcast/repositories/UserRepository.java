@@ -7,10 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public interface UserRepository extends Repository<User, Long>, CrudRepository<User, Long>{
     User findUserByEmail(String email);
-    <T> Collection<T> findUserByEmail(String email, Class<T> type);
-    @Query("select u.login, u.password from User u")
-    Collection<User> findBy();
+    @Query("SELECT r.name as role, r.description as description FROM User u JOIN u.roles r WHERE u.email = ?1")
+    List<Map<String,Object>> findUserRoles(String email);
 }

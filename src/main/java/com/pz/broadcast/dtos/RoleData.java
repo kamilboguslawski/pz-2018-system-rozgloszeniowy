@@ -11,8 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleData {
+    public RoleData(String name) {
+        this.name = name;
+    }
+
     Long id;
     String name;
     String description;
     List<UserData> users;
 }
+
+
