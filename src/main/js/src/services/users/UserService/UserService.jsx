@@ -47,37 +47,37 @@ class UserService {
         ).then(response => {
 
             if (response.ok) {
-                const user = response.json();
+                return response.json()
+                    .then(user => {
+                        const rolesPromise = fetch(
+                            user._links.roles.href.replace("{?projection}", ""),
+                            {
+                                method: 'PUT',
+                                headers: {
+                                    'Accept': 'text/uri-list',
+                                    'Content-Type': 'text/uri-list'
+                                },
+                                body: convertedRoles
+                            }
+                        );
 
-                const rolesPromise = fetch(
-                    user._links.roles.href.replace("{?projection}", ""),
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Accept': 'text/uri-list',
-                            'Content-Type': 'text/uri-list'
-                        },
-                        body: convertedRoles
-                    }
-                );
+                        const groupsPromise = fetch(
+                            user._links.groups.href.replace("{?projection}", ""),
+                            {
+                                method: 'PUT',
+                                headers: {
+                                    'Accept': 'text/uri-list',
+                                    'Content-Type': 'text/uri-list'
+                                },
+                                body: convertedGroups
+                            }
+                        );
 
-                const groupsPromise = fetch(
-                    user._links.groups.href.replace("{?projection}", ""),
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Accept': 'text/uri-list',
-                            'Content-Type': 'text/uri-list'
-                        },
-                        body: convertedGroups
-                    }
-                );
-
-                return Promise.all([rolesPromise, groupsPromise])
-                    .then(responses => {
-                        return responses.every(response => response.ok)
-                    })
-
+                        return Promise.all([rolesPromise, groupsPromise])
+                            .then(responses => {
+                                return responses.every(response => response.ok)
+                            })
+                    });
             }
 
             return false;
