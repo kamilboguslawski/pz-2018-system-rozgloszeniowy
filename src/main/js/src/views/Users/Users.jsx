@@ -1,31 +1,11 @@
 import React, {Component} from 'react';
 import './Users.css';
 import BaseLayout from "../../commons/layouts/BaseLayout/BaseLayout";
-import {Col, Collapse, Row} from "reactstrap";
+import {Col, Row} from "reactstrap";
 import UserList from "./components/UserList/UserList";
-import {MdPersonAdd, MdSearch} from "react-icons/lib/md/index";
-import UsersFilters from "./components/UsersFilters/UsersFilters";
-import AddEditUserModal from "./components/AddEditUser/AddEditUserModal";
+import {MdPersonAdd} from "react-icons/lib/md/index";
 
 class Users extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            filtersCollapse: false,
-            addUserOpen: false,
-        };
-
-        this.toggleAddUserModal = this.toggleAddUserModal.bind(this);
-    }
-
-    toggleFilters() {
-        this.setState({filtersCollapse: !this.state.filtersCollapse});
-    }
-
-    toggleAddUserModal() {
-        this.setState({addUserOpen: !this.state.addUserOpen});
-    }
 
     render() {
         return (
@@ -37,15 +17,9 @@ class Users extends Component {
                                 Users
                             </h1>
                             <div className="users--actions">
-                                <MdPersonAdd onClick={() => this.toggleAddUserModal()}/>
-                                <MdSearch onClick={() => this.toggleFilters()}/>
+                                <MdPersonAdd onClick={() => this.props.history.push('/users/add')}/>
                             </div>
                         </div>
-                    </Col>
-                    <Col xs={12}>
-                        <Collapse isOpen={this.state.filtersCollapse}>
-                            <UsersFilters className="users--filters"/>
-                        </Collapse>
                     </Col>
                 </Row>
                 <Row>
@@ -53,8 +27,6 @@ class Users extends Component {
                         <UserList/>
                     </Col>
                 </Row>
-
-                <AddEditUserModal isOpen={this.state.addUserOpen} toggle={this.toggleAddUserModal}/>
             </BaseLayout>
         )
     }
