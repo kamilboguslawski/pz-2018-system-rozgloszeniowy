@@ -8,6 +8,7 @@ import {createStore} from 'redux';
 import reducers from './reducers';
 import Homepage from "./views/Homepage/Homepage";
 import Login from "./views/Login/Login";
+import Register from "./views/Register/Register";
 import Users from "./views/Users/Users";
 import AddEditUser from "./views/Users/components/AddEditUser/AddEditUser";
 
@@ -22,6 +23,7 @@ ReactDOM.render(
                 <Route exact path="/users/add" component={AddEditUser}/>
                 <Route path="/users/:id" component={AddEditUser}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
             </Switch>
         </BrowserRouter>
     </Provider>,
