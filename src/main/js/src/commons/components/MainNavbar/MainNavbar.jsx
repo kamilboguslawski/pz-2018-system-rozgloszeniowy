@@ -46,6 +46,14 @@ class MainNavbar extends Component {
                                         Users
                                     </Link>
                                 </NavItem>
+                                <NavItem>
+                                    <Link
+                                        to="/devices"
+                                        className="nav-link"
+                                    >
+                                        Devices
+                                    </Link>
+                                </NavItem>
                             </Nav>
                         </Collapse>
                     </Container>
