@@ -14,6 +14,7 @@ class UserGroupService {
             fetchUrl,
             {
                 method: 'GET',
+                credentials: 'same-origin',
                 headers: UserGroupService.BASE_FETCH_HEADERS
             }
         ).then(response => response.json());

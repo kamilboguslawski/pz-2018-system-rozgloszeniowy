@@ -41,27 +41,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf()
+                    .disable()
                 .authorizeRequests()
-                .antMatchers("/js/**", "/api/**").permitAll() //FIXME: api cannot be open for anyone, currently react need this.
-                .antMatchers("/404", "/403", "/home", "/about", "/logout", "/isLogged").permitAll()
-                .antMatchers("/", "/register").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority("GLOBAL_ADMINISTRATOR")
-                .antMatchers("/user/**","/hello","/getRoles").hasAnyAuthority("USER","GLOBAL_ADMINISTRATOR", "GROUP_ADMINISTRATOR")
-                .anyRequest().denyAll()
-                .and()
+                    .antMatchers("/js/**").permitAll()
+                    .antMatchers("/404", "/403", "/home", "/about", "/logout", "/isLogged").permitAll()
+                    .antMatchers("/", "/register").permitAll()
+                    .antMatchers("/admin/**").hasAnyAuthority("GLOBAL_ADMINISTRATOR")
+                    .antMatchers("/api/**", "/user/**","/hello","/getRoles").hasAnyAuthority("USER","GLOBAL_ADMINISTRATOR", "GROUP_ADMINISTRATOR")
+                    .anyRequest()
+                        .denyAll()
+                    .and()
                 .formLogin()
-                //.loginPage("/login") // call our view replace /login with whatever view name for login page
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .successForwardUrl("/hello")
-                .failureForwardUrl("/404")
-                .permitAll()
-                .and()
+                    //.loginPage("/login") // call our view replace /login with whatever view name for login page
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .successForwardUrl("/hello")
+                    .failureForwardUrl("/404")
+                    .permitAll()
+                    .and()
                 .logout()
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                    .permitAll()
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedHandler(accessDeniedHandler);
     }
 
     @Override

@@ -13,6 +13,7 @@ class RoleService {
             fetchUrl,
             {
                 method: 'GET',
+                credentials: 'same-origin',
                 headers: RoleService.BASE_FETCH_HEADERS
             }
         ).then(response => response.json());
