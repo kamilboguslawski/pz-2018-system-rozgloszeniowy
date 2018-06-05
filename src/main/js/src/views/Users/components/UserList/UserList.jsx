@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './UserList.css';
-import { withRouter } from 'react-router-dom'
 import {Pagination, PaginationItem, PaginationLink, Table} from "reactstrap";
-import {MdEdit, MdHighlightRemove} from "react-icons/lib/md/index";
 import UserService from "../../../../services/users/UserService/UserService";
+import BaseModal from "../../../../commons/components/modals/BaseModal/BaseModal";
+import UserRow from "./components/UserRow/UserRow";
 
 const UserHeaders = () => (
     <tr>
@@ -16,7 +16,7 @@ const UserHeaders = () => (
     </tr>
 );
 
-const UserRow = withRouter(({user, index, history}) => (
+/*const UserRow = withRouter(({user, index, history, parent}) => (
     <tr>
         <th scope="row">{index + 1}</th>
         <td>{user.email}</td>
@@ -25,10 +25,10 @@ const UserRow = withRouter(({user, index, history}) => (
         <td>{user.groups.map((group, index) => index !== user.groups.length - 1 ? `${group.name}, ` : group.name)}</td>
         <td className="user-table--actions-cell">
             <MdEdit className="user-table--edit-icon" onClick={() => history.push(`/users/${user.id}`)}/>
-            <MdHighlightRemove className="user-table--remove-icon"/>
+            <MdHighlightRemove className="user-table--remove-icon" onClick={() => parent.prepareDeleteUser(user.id)}/>
         </td>
     </tr>
-));
+));*/
 
 
 class UserList extends Component {
@@ -41,7 +41,10 @@ class UserList extends Component {
         this.state = {
             currentPage: 0,
             pages: 0,
-            users: []
+            users: [],
+            deleteModalToggle: null,
+            errorModalToggle: null,
+            userIdToDelete: null
         }
     }
 
@@ -60,6 +63,30 @@ class UserList extends Component {
         this.getUsers();
     }
 
+    prepareDeleteUser(id) {
+        this.setState({userIdToDelete: id});
+    }
+
+    deletePreparedUser() {
+        this.state.deleteModalToggle();
+
+        const backupUsers = this.state.users;
+        const userId = this.state.userIdToDelete;
+        UserService.deleteUser(userId)
+            .then(response => {
+                if (!response.ok) {
+                    this.setState({
+                        users: backupUsers
+                    });
+                    this.state.errorModalToggle();
+                }
+            });
+
+        this.setState(prevState => ({
+            users: prevState.users.filter(user => user.id !== this.state.userIdToDelete),
+            userIdToDelete: null
+        }));
+    }
 
     render() {
         return (
@@ -73,7 +100,9 @@ class UserList extends Component {
                     </thead>
                     <tbody>
                     {
-                        this.state.users.map((user, index) => <UserRow key={index} index={index} user={user}/>)
+                        this.state.users.map((user, index) => <UserRow key={index} index={index} user={user}
+                                                                       prepareDeleteUserMethod={this.prepareDeleteUser.bind(this)}
+                                                                       deleteModalToggle={this.state.deleteModalToggle}/>)
                     }
                     </tbody>
                 </Table>
@@ -105,6 +134,29 @@ class UserList extends Component {
                         </PaginationItem>
                     </Pagination>
                 </div>
+
+                <BaseModal
+                    toggle={(toggle) => this.state.deleteModalToggle = toggle}
+                    header={<span>Delete Confirmation</span>}
+                    body={
+                        <span>This operation is irreversible. Are you sure?</span>
+                    }
+                    approveButtonContent={<span>DESTROY THIS!</span>}
+                    approveButtonColor="danger"
+                    onApproveClick={() => this.deletePreparedUser()}
+                    cancelButtonContent={<span>Get me out of here!</span>}
+                    onCancelClick={() => this.state.deleteModalToggle()}
+                />
+
+                <BaseModal
+                    toggle={(toggle) => this.state.errorModalToggle = toggle}
+                    header={<span>Error</span>}
+                    body={
+                        <span>Something went wrong, sorry. :(</span>
+                    }
+                    cancelButtonContent={<span>Understood!</span>}
+                    onCancelClick={() => this.state.errorModalToggle()}
+                />
             </div>
         )
     }

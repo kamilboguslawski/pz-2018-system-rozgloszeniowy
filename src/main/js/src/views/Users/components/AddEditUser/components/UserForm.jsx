@@ -4,8 +4,26 @@ import {MdHighlightRemove} from "react-icons/lib/md/index";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import SuggestionInput from "../../../../../commons/components/SuggestionInput/SuggestionInput";
 import UserService from "../../../../../services/users/UserService/UserService";
+import validate from 'validate.js';
+import BaseModal from "../../../../../commons/components/modals/BaseModal/BaseModal";
 
 class UserForm extends Component {
+
+    static validatorConstraints = {
+        email: {
+            presence: true,
+            length: {
+                minimum: 1
+            },
+            email: true
+        },
+        login: {
+            presence: true,
+            length: {
+                minimum: 1
+            }
+        }
+    };
 
     constructor(props) {
         super(props);
@@ -16,7 +34,10 @@ class UserForm extends Component {
             login: '',
             password: '',
             roles: [],
-            groups: []
+            groups: [],
+            errors: [],
+            errorModalToggle: null,
+            confirmationModalToggle: null
         };
     }
 
@@ -34,25 +55,64 @@ class UserForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        if (this.props.user != null) {
-            const user = {
-                email: this.state.email,
-                login: this.state.login
-            };
 
-            if (this.state.password.length > 0) {
-                user.password = this.state.password;
-            }
+        const user = {
+            email: this.state.email,
+            login: this.state.login
+        };
+        const errors = validate(user, UserForm.validatorConstraints, {format: "flat"});
 
-            UserService.updateUser(
-                this.props.user.id,
-                user,
-                this.state.roles,
-                this.state.groups
-            );
+        if (errors !== undefined) {
+            this.setState({
+                errors
+            });
+            this.state.errorModalToggle();
         } else {
-            // create
+            if (this.state.password.length > 0)
+                user.password = this.state.password;
+
+            if (this.props.user != null)
+                this.handleUserUpdate(user, this.state.roles, this.state.groups);
+            else
+                this.handleUserCreate(user, this.state.roles, this.state.groups);
         }
+    }
+
+    handleUserUpdate(user, roles, groups) {
+        UserService.updateUser(
+            this.props.user.id,
+            user,
+            roles,
+            groups
+        ).then(
+            successful => {
+                if (successful) {
+                    this.state.confirmationModalToggle();
+                } else {
+                    this.setState({
+                        errors: ['Something went wrong, try again.']
+                    })
+                }
+            }
+        );
+    }
+
+    handleUserCreate(user, roles, groups) {
+        UserService.createUser(
+            user,
+            roles,
+            groups
+        ).then(
+            successful => {
+                if (successful) {
+                    this.state.confirmationModalToggle();
+                } else {
+                    this.setState({
+                        errors: ['Something went wrong, try again.']
+                    })
+                }
+            }
+        );
     }
 
     render() {
@@ -76,7 +136,7 @@ class UserForm extends Component {
 
                 <FormGroup>
                     <Label for="password">Password</Label>
-                    <Input type="password" name="password" id="password" placeholder="****"
+                    <Input type="password" name="password" id="password"
                            onChange={(e) => this.setState({password: e.target.value})}
                     />
                 </FormGroup>
@@ -152,6 +212,33 @@ class UserForm extends Component {
                 <div className="user-form--buttons">
                     <Button type="submit" color="success">Save</Button>
                 </div>
+
+                <BaseModal
+                    toggle={(toggle) => this.state.errorModalToggle = toggle}
+                    header={<span>Errors in form!</span>}
+                    body={
+                        <ul>
+                            {
+                                this.state.errors.map((error, index) => <li key={index}>{error}</li>)
+                            }
+                        </ul>
+                    }
+                    cancelButtonContent={<span>Understood!</span>}
+                    onCancelClick={() => this.state.errorModalToggle()}
+                />
+
+                <BaseModal
+                    toggle={(toggle) => this.state.confirmationModalToggle = toggle}
+                    header={<span>Confirmation</span>}
+                    body={
+                        this.props.user != null ?
+                            <span>User updated!</span>
+                            :
+                            <span>User created!</span>
+                    }
+                    cancelButtonContent={<span>Understood!</span>}
+                    onCancelClick={() => this.state.confirmationModalToggle()}
+                />
             </Form>
         )
     }

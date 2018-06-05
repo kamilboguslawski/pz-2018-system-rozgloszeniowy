@@ -33,6 +33,75 @@ class UserService {
         ).then(response => response.json());
     }
 
+    static deleteUser(id) {
+        const fetchUrl = `${UserService.BASE_URL}/${id}`;
+
+        return fetch(
+            fetchUrl,
+            {
+                method: 'DELETE',
+                credentials: 'same-origin',
+                headers: UserService.BASE_FETCH_HEADERS
+            }
+        );
+    }
+
+    static createUser(user, roles, groups) {
+        const fetchUrl = `${UserService.BASE_URL}`;
+
+        const convertedRoles = roles.map(role => role._links.self.href.replace("{?projection}", "")).join('\n');
+        const convertedGroups = groups.map(group => group._links.self.href.replace("{?projection}", "")).join('\n');
+
+        return fetch(
+            fetchUrl,
+            {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(user),
+                headers: UserService.BASE_FETCH_HEADERS
+            }
+        ).then(response => {
+
+            if (response.ok) {
+                return response.json()
+                    .then(user => {
+                        const rolesPromise = fetch(
+                            user._links.roles.href.replace("{?projection}", ""),
+                            {
+                                method: 'PUT',
+                                credentials: 'same-origin',
+                                headers: {
+                                    'Accept': 'text/uri-list',
+                                    'Content-Type': 'text/uri-list'
+                                },
+                                body: convertedRoles
+                            }
+                        );
+
+                        const groupsPromise = fetch(
+                            user._links.groups.href.replace("{?projection}", ""),
+                            {
+                                method: 'PUT',
+                                credentials: 'same-origin',
+                                headers: {
+                                    'Accept': 'text/uri-list',
+                                    'Content-Type': 'text/uri-list'
+                                },
+                                body: convertedGroups
+                            }
+                        );
+
+                        return Promise.all([rolesPromise, groupsPromise])
+                            .then(responses => {
+                                return responses.every(response => response.ok)
+                            })
+                    });
+            }
+
+            return false;
+        });
+    }
+
     static updateUser(id, user, roles, groups) {
         const fetchUrl = `${UserService.BASE_URL}/${id}`;
 
@@ -87,7 +156,6 @@ class UserService {
 
             return false;
         });
-
     }
 
 }

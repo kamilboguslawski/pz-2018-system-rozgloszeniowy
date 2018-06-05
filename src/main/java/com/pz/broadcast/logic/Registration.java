@@ -7,7 +7,6 @@ import com.pz.broadcast.repositories.RoleRepository;
 import com.pz.broadcast.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,21 +14,23 @@ import java.util.List;
 
 @Service
 public class Registration {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final ModelMapper modelMapper;
+
 
     @Autowired
-    private RoleRepository roleRepository;
+    public Registration(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
+    }
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public UserData registerUser(UserData user){
+    public UserData registerUser(UserData user) {
         try {
             User temp = userRepository.findUserByEmail(user.getEmail());
             if (temp == null) {
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 User userEntity = modelMapper.map(user, User.class);
                 if (userEntity != null) {
                     Role userRole = roleRepository.findFirstByName("USER");
