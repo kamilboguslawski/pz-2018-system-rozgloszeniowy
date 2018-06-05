@@ -29,10 +29,25 @@ public class User {
 
     protected User() {}
 
+    public User(String login) {
+        this.login = login;
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
 
+    public User(String login, String password, String email, List<Role> roles) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
 }

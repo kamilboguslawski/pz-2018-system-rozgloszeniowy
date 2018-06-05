@@ -2,7 +2,7 @@
   {
     "_class": "com.pz.broadcast.entities.User",
     "login": "globaladmin",
-    "password": "globaladmin",
+    "password": "$2a$10$AFONUsb8s3SjrePOOY2O2O70n.Umpj4lVl.Ej3CehN5sf6Ri960zq",
     "email": "globaladmin@broadcast.com",
     "roles": [
       {
@@ -17,14 +17,22 @@
     "groups": [
       {
         "_class": "com.pz.broadcast.entities.UserGroup",
-        "name": "TESTOWA Grupa 23"
+        "name": "TESTOWA Grupa 2"
+      }
+    ],
+    "devices": [
+      {
+        "_class": "com.pz.broadcast.entities.Device",
+        "name": "E23-2",
+        "pushToken": "192hd98q7ho8dah28od721gq8woq712dgo8%$5128e",
+        "IPAddress": "1.1.1.1"
       }
     ]
   },
   {
     "_class": "com.pz.broadcast.entities.User",
     "login": "groupadmin",
-    "password": "groupadmin",
+    "password": "$2a$10$lD869q.xVd8gk105UxuIOuhB8eYTuM6nGCQ8Rq/IuuAKJX1WVVHl.",
     "email": "groupadmin@broadcast.com",
     "roles": [
       {
@@ -39,19 +47,35 @@
     "groups": [
       {
         "_class": "com.pz.broadcast.entities.UserGroup",
-        "name": "TESTOWA Grupa 22"
+        "name": "TESTOWA Grupa 3"
+      }
+    ],
+    "devices": [
+      {
+        "_class": "com.pz.broadcast.entities.Device",
+        "name": "TESTOWA E23-22",
+        "pushToken": "192hd98q7ho8dah28od721gq8woq712dgo8%$5128e",
+        "IPAddress": "1.1.1.2"
       }
     ]
   },
   {
     "_class": "com.pz.broadcast.entities.User",
     "login": "user",
-    "password": "user",
+    "password": "$2a$10$nRYB0uAs0cQBVTl.2MSNme6p1WwiXiImtg.l0IvUQEU6bnydTnNja",
     "email": "user@broadcast.com",
     "roles": [
       {
         "_class": "com.pz.broadcast.entities.Role",
         "id": 20
+      }
+    ],
+    "devices": [
+      {
+        "_class": "com.pz.broadcast.entities.Device",
+        "name": "TESTOWA 2 E23-22",
+        "pushToken": "192hd98q7ho8dah28od721gq8woq712dgo8%$5128e",
+        "IPAddress": "1.1.1.3"
       }
     ]
   }

@@ -1,0 +1,40 @@
+.users--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.users--header h1 {
+    margin-bottom: 0;
+}
+
+.users--actions svg {
+    height: 2.6em;
+    width: 2.6em;
+}
+
+.users--actions svg:hover {
+    cursor: pointer;
+    animation: users--actions 1s infinite;
+}
+
+.users--actions > * + * {
+    margin-left: 10px;
+}
+
+.users--filters {
+    margin: 0 0 20px;
+}
+
+@keyframes users--actions {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(.9, .9);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}

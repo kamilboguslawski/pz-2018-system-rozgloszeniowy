@@ -1,0 +1,26 @@
+.suggestion {
+
+}
+
+.suggestion--items-list {
+    list-style: none;
+    padding: 0;
+}
+
+.suggestion--items-list li {
+    padding: 10px 10px;
+    border: 1px solid #ced4da;
+}
+
+.suggestion--items-list li + li {
+    border-top: 0;
+}
+
+.suggestion--items-list li:hover {
+    cursor: pointer;
+    background-color: #e8f0f5;
+}
+
+.suggestion--input {
+    margin-bottom: 5px;
+}
