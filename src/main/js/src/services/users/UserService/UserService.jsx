@@ -14,6 +14,7 @@ class UserService {
             fetchUrl,
             {
                 method: 'GET',
+                credentials: 'same-origin',
                 headers: UserService.BASE_FETCH_HEADERS
             }
         ).then(response => response.json());
@@ -26,6 +27,7 @@ class UserService {
             fetchUrl,
             {
                 method: 'GET',
+                credentials: 'same-origin',
                 headers: UserService.BASE_FETCH_HEADERS
             }
         ).then(response => response.json());
@@ -41,6 +43,7 @@ class UserService {
             fetchUrl,
             {
                 method: 'PUT',
+                credentials: 'same-origin',
                 body: JSON.stringify(user),
                 headers: UserService.BASE_FETCH_HEADERS
             }
@@ -53,6 +56,7 @@ class UserService {
                             user._links.roles.href.replace("{?projection}", ""),
                             {
                                 method: 'PUT',
+                                credentials: 'same-origin',
                                 headers: {
                                     'Accept': 'text/uri-list',
                                     'Content-Type': 'text/uri-list'
@@ -65,6 +69,7 @@ class UserService {
                             user._links.groups.href.replace("{?projection}", ""),
                             {
                                 method: 'PUT',
+                                credentials: 'same-origin',
                                 headers: {
                                     'Accept': 'text/uri-list',
                                     'Content-Type': 'text/uri-list'
