@@ -2,13 +2,13 @@ const path = require("path");
 
 module.exports = {
     entry: {
-        './src/main/js/src/app.bundle.js': './src/main/js/src/index.js',
-        './target/classes/static/js/app.bundle.js': './src/main/js/src/index.js',
+        'src/main/resources/static/js/app.bundle': './src/main/js/src/index.js',
+        'target/classes/static/js/app.bundle': './src/main/js/src/index.js',
     },
     devtool: 'sourcemaps',
     output: {
         path: path.resolve(__dirname, "./"),
-        filename: '[name]'
+        filename: '[name].js'
     },
     module: {
         rules: [
