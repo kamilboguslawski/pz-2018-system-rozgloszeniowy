@@ -12,7 +12,8 @@
   },
   "homepage": "https://github.com/Frezzu/pz-2018-system-rozgloszeniowy#readme",
   "scripts": {
-    "watch": "webpack --watch -d"
+    "watch": "webpack --watch -d",
+    "build": "webpack -p"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
