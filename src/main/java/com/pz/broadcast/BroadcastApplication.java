@@ -6,11 +6,16 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @ImportResource("classpath:broadcast-database-data.xml")
-@ComponentScan({"com.pz.broadcast.config", "com.pz.broadcast.controllers", "com.pz.broadcast.logic"})
+@ComponentScan({
+        "com.pz.broadcast.config",
+        "com.pz.broadcast.controllers",
+        "com.pz.broadcast.logic",
+        "com.pz.broadcast.interceptors"
+})
 public class BroadcastApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(BroadcastApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BroadcastApplication.class, args);
+    }
 }
