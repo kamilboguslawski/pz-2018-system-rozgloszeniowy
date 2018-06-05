@@ -23,7 +23,7 @@ class BaseModal extends Component {
 
 
     render() {
-        const {header, body, onApproveClick, onCancelClick, approveButtonContent, cancelButtonContent} = this.props;
+        const {header, body, onApproveClick, onCancelClick, approveButtonContent, cancelButtonContent, approveButtonColor, cancelButtonColor} = this.props;
 
         return (
             <Modal isOpen={this.state.isOpen} toggle={this.toggle} className={this.props.className} centered>
@@ -36,7 +36,8 @@ class BaseModal extends Component {
                 <ModalFooter>
                     {
                         approveButtonContent ?
-                            <Button color="success" onClick={onApproveClick}>
+                            <Button color={approveButtonColor ? approveButtonColor : 'success'}
+                                    onClick={onApproveClick}>
                                 {approveButtonContent}
                             </Button>
                             :
@@ -45,7 +46,7 @@ class BaseModal extends Component {
 
                     {
                         cancelButtonContent ?
-                            <Button color="secondary" onClick={onCancelClick}>
+                            <Button color={cancelButtonColor ? cancelButtonColor : 'secondary'} onClick={onCancelClick}>
                                 {cancelButtonContent}
                             </Button>
                             :
@@ -65,9 +66,11 @@ BaseModal.propTypes = {
 
     onApproveClick: PropTypes.func,
     approveButtonContent: PropTypes.node,
+    approveButtonColor: PropTypes.string,
 
     onCancelClick: PropTypes.func,
-    cancelButtonContent: PropTypes.node
+    cancelButtonContent: PropTypes.node,
+    cancelButtonColor: PropTypes.string,
 };
 
 export default BaseModal;

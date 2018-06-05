@@ -33,6 +33,19 @@ class UserService {
         ).then(response => response.json());
     }
 
+    static deleteUser(id) {
+        const fetchUrl = `${UserService.BASE_URL}/${id}`;
+
+        return fetch(
+            fetchUrl,
+            {
+                method: 'DELETE',
+                credentials: 'same-origin',
+                headers: UserService.BASE_FETCH_HEADERS
+            }
+        );
+    }
+
     static createUser(user, roles, groups) {
         const fetchUrl = `${UserService.BASE_URL}`;
 
