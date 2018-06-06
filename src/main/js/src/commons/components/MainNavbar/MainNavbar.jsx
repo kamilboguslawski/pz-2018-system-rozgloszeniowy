@@ -46,12 +46,22 @@ class MainNavbar extends Component {
                                         Users
                                     </Link>
                                 </NavItem>
+<<<<<<< HEAD
                                 <NavItem>
                                     <Link
                                         to="/usersgroup"
                                         className="nav-link"
                                     >
                                         Users group
+=======
+
+                                <NavItem>
+                                    <Link
+                                        to="/fileTransfer"
+                                        className="nav-link"
+                                    >
+                                        Upload file
+>>>>>>> 78d40d4bfcc713a9c8d3a17c4d371084da82f4b8
                                     </Link>
                                 </NavItem>
                             </Nav>

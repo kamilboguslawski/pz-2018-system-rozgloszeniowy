@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import {createStore} from 'redux';
 import reducers from './reducers';
 import Homepage from "./views/Homepage/Homepage";
+import FileTransfer from "./views/FileTransfer/FileTransfer";
 import Login from "./views/Login/Login";
 import Register from "./views/Register/Register";
 import Users from "./views/Users/Users";
@@ -22,6 +23,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Homepage}/>
+                <Route exact path="/fileTransfer" component={FileTransfer}/>
                 <Route exact path="/users" component={Users}/>
                 <Route exact path="/usersgroup" component={UsersGroup}/>
                 <Route exact path="/usersgroup/add" component={AddEditUserGroup}/>
