@@ -46,6 +46,14 @@ class MainNavbar extends Component {
                                         Users
                                     </Link>
                                 </NavItem>
+                                <NavItem>
+                                    <Link
+                                        to="/usersgroup"
+                                        className="nav-link"
+                                    >
+                                        Users group
+                                    </Link>
+                                </NavItem>
                             </Nav>
                         </Collapse>
                     </Container>
