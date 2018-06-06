@@ -1,5 +1,8 @@
 package com.pz.broadcast.services.file;
 
+import com.pz.broadcast.dtos.FileData;
+import com.pz.broadcast.services.FileService;
+import com.pz.broadcast.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -13,25 +16,39 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
+    private final FileService fileService;
 
     @Autowired
-    public FileSystemStorageService() {
+    public FileSystemStorageService(FileService fileService) {
         this.rootLocation = Paths.get("upload-dir");
+        this.fileService = fileService;
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public FileData store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            String hashedFileName = FileUtils.hashFileName(file.getOriginalFilename());
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(hashedFileName));
+
+            FileData fileData = new FileData();
+            fileData.setFileHash(hashedFileName);
+            fileData.setName(file.getOriginalFilename());
+            fileData.setGroups(Collections.emptyList());
+            fileData.setLink("");
+
+            fileService.saveFile(fileData);
+
+            return fileData;
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }

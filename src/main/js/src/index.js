@@ -19,7 +19,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route path="/" component={Homepage}/>
+                <Route exact path="/" component={Homepage}/>
                 <Route exact path="/fileTransfer" component={FileTransfer}/>
                 <Route exact path="/users" component={Users}/>
                 <Route exact path="/users/add" component={AddEditUser}/>
