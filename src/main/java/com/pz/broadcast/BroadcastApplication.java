@@ -11,8 +11,9 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan({
         "com.pz.broadcast.config",
         "com.pz.broadcast.controllers",
-        "com.pz.broadcast.logic",
-        "com.pz.broadcast.interceptors"
+        "com.pz.broadcast.interceptors",
+        "com.pz.broadcast.services",
+        "com.pz.broadcast.utils"
 })
 public class BroadcastApplication {
     public static void main(String[] args) {

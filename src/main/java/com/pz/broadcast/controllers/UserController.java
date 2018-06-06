@@ -2,10 +2,12 @@ package com.pz.broadcast.controllers;
 
 
 import com.pz.broadcast.dtos.FileData;
-import com.pz.broadcast.logic.Files;
+import com.pz.broadcast.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -13,37 +15,31 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
+
+    private final FileService fileService;
+
     @Autowired
-    protected Files files;
+    public UserController(FileService fileService) {
+        this.fileService = fileService;
+    }
+
 
     @RequestMapping(value = "/file", method = RequestMethod.GET)
-    public List<FileData> getAllFiles() {
+    public List<FileData> getFiles() {
         try {
-            return files.getAllFiles();
-        } catch (Exception e){
+            return fileService.getAllFiles();
+        } catch (Exception e) {
             return null;
         }
     }
 
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
-    public FileData getOneFile(@PathVariable long id) {
+    public FileData getFile(@PathVariable long id) {
         try {
-            return files.getOneFile(id);
-        } catch (Exception e){
+            return fileService.getOneFile(id);
+        } catch (Exception e) {
             return null;
         }
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        try {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String temp = bCryptPasswordEncoder.encode("globaladmin");
-            String temp2 = bCryptPasswordEncoder.encode("groupadmin");
-            return temp + " <br> " + temp2;
-        } catch (Exception e){
-            String test = e.getMessage();
-            return null;
-        }
-    }
 }
