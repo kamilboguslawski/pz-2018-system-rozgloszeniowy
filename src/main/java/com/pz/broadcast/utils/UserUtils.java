@@ -1,4 +1,4 @@
-package com.pz.broadcast.logic;
+package com.pz.broadcast.utils;
 
 import com.pz.broadcast.dtos.RoleData;
 import com.pz.broadcast.repositories.UserRepository;
@@ -13,15 +13,23 @@ import java.util.Map;
 
 @Service
 public class UserUtils {
+
+    private final UserRepository userRepository;
+
     @Autowired
-    protected UserRepository userRepository;
+    public UserUtils(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
 
     public List<RoleData> getUserRoles(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        List<Map<String,Object>> userList =  userRepository.findUserRoles(email);
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String email = auth.getName();
+        final List<Map<String,Object>> userList =  userRepository.findUserRoles(email);
+
         if (userList == null)
             return null;
+
         List<RoleData> roleDataList = new ArrayList<>();
         for (Map<String,Object> item : userList) {
             RoleData role = new RoleData();
@@ -29,6 +37,7 @@ public class UserUtils {
             role.setDescription(item.get("description").toString());
             roleDataList.add(role);
         }
+
         return roleDataList;
     }
 }

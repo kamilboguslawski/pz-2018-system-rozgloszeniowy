@@ -8,13 +8,12 @@ public class LoginRequest {
         return login;
     }
 
-    public String getPassword() {
-        return password;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public void setLogin(String login) {
-
-        this.login = login;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {

@@ -1,12 +1,11 @@
 package com.pz.broadcast.controllers;
 
-
 import com.pz.broadcast.dtos.RoleData;
 import com.pz.broadcast.dtos.UserData;
-import com.pz.broadcast.logic.Registration;
-import com.pz.broadcast.logic.UserUtils;
+import com.pz.broadcast.services.AuthService;
 import com.pz.broadcast.requests.LoginRequest;
 import com.pz.broadcast.response.LoginResponse;
+import com.pz.broadcast.utils.UserUtils;
 import com.pz.broadcast.validators.RegisterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,30 +20,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-
 @RestController
-public class MainController {
-    @Autowired
-    Registration registration;
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final UserUtils userUtils;
+    private final AuthService authService;
 
     @Autowired
-    UserUtils userUtils;
-
-    @RequestMapping(value = "/def", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json")
-    public String def(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.sendRedirect("/home");
-        } catch (Exception e) {
-            return "Hello World";
-        }
-        return "Home";
+    public AuthController(UserUtils userUtils, AuthService authService) {
+        this.userUtils = userUtils;
+        this.authService = authService;
     }
+
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResponse login(@RequestBody LoginRequest credentials) {
         LoginResponse response = new LoginResponse();
 //        response = dbClass.login(credentials);
         return response;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestBody UserData user) {
+        RegisterValidator registerValidator = new RegisterValidator();
+        if (!registerValidator.userValidate(user))
+            return null;
+        else {
+            UserData savedUser = authService.registerUser(user);
+            if (savedUser == null)
+                return "Registration failed";
+        }
+        return "Registration successful";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -61,27 +68,17 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestBody UserData user) {
-        RegisterValidator registerValidator = new RegisterValidator();
-        if (!registerValidator.userValidate(user))
-            return null;
-        else {
-            UserData savedUser = registration.registerUser(user);
-            if (savedUser == null)
-                return "Registration failed";
-        }
-        return "Registration successful";
-    }
-
     @RequestMapping(value = "/isLogged", method = RequestMethod.GET)
     public boolean isLogged(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         if (auth == null)
             return false;
+
         String name = auth.getName();
         if (name != null && !name.equals("anonymousUser"))
             return true;
+
         return false;
     }
 
@@ -89,4 +86,5 @@ public class MainController {
     public List<RoleData> getRoles(HttpServletRequest request, HttpServletResponse response) {
         return userUtils.getUserRoles();
     }
+
 }

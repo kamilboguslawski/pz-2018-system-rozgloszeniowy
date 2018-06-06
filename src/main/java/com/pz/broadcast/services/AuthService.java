@@ -1,4 +1,4 @@
-package com.pz.broadcast.logic;
+package com.pz.broadcast.services;
 
 import com.pz.broadcast.dtos.UserData;
 import com.pz.broadcast.entities.Role;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class Registration {
+public class AuthService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -21,7 +21,7 @@ public class Registration {
 
 
     @Autowired
-    public Registration(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper) {
+    public AuthService(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
