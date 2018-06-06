@@ -1,0 +1,41 @@
+.user-table--pagination-wrapper {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 15px;
+}
+
+.user-table.table th {
+    border-top: 0;
+}
+
+.user-table .user-table--actions-cell {
+    text-align: right;
+}
+
+.user-table .user-table--actions-cell svg {
+    width: 1.6em;
+    height: 1.6em;
+    margin: 0 2px;
+}
+
+.user-table .user-table--actions-cell svg:hover {
+    cursor: pointer;
+    animation: user-table--actions 1s infinite;
+}
+
+.user-table--remove-icon {
+    color: #ff0000;
+}
+
+@keyframes user-table--actions {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(.9, .9);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
