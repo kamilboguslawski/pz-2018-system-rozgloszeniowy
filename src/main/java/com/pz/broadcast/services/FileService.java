@@ -15,8 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -103,5 +101,11 @@ public class FileService {
         } catch (Exception e){
             return null;
         }
+    }
+
+    public FileData saveFile(FileData fileData) {
+        File fileEntity = modelMapper.map(fileData, File.class);
+        fileEntity = fileRepository.save(fileEntity);
+        return modelMapper.map(fileEntity, FileData.class);
     }
 }
